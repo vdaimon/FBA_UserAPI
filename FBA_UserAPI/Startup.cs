@@ -15,18 +15,24 @@ namespace FBA_UserAPI
         {
             string con = "Host=localhost;Port=5432;Database=FBA_user_db;Username=postgres;Password=password";
 
-
             services.AddDbContext<BalanceContext>(options => options.UseNpgsql(con));
 
             services.AddControllers();
 
             services.AddCors();
+
+            services.AddSwaggerGen();
+
         }
 
         public void Configure(IApplicationBuilder app)
         {
 
             app.UseDeveloperExceptionPage();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI();
 
             app.UseRouting();
 
