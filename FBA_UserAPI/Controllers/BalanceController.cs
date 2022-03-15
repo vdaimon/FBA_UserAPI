@@ -23,6 +23,13 @@ namespace FBA_UserAPI.Controllers
             return new ObjectResult(balance);
         }
 
+        [Route ("balanceList")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Balance>>> GetBalanceList()
+        {
+            return await db.Balances.ToListAsync();
+        }
+        
         [HttpPost]
         public async Task<ActionResult<Balance>> Post(Balance balance)
         {
@@ -32,10 +39,29 @@ namespace FBA_UserAPI.Controllers
             }
 
             db.Balances.Add(balance);
-            await db.SaveChangesAsync();
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
             return Ok(balance);
         }
 
+        [HttpDelete]
+        public async Task<ActionResult> DeleteBalance(int id)
+        {
+            Balance? balance = db.Balances.FirstOrDefault(x => x.Id == id);
+            if (balance == null)
+            {
+                return NotFound();
+            }
+            db.Balances.Remove(balance);
+            await db.SaveChangesAsync();
+            return Ok(balance);
+        }
 
     }
 }

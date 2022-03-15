@@ -10,7 +10,7 @@ namespace FBA_UserAPI.Controllers
     public class TransactionsController : ControllerBase
     {
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Transaction transaction)
+        public async Task<ActionResult> Post(Transaction transaction)
         {
             if (transaction == null)
             {
