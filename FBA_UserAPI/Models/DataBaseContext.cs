@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FBA_UserAPI.Controllers
 {
-    public class BalanceContext : DbContext
+    public class DataBaseContext : DbContext
     {
         public DbSet<Balance> Balances { get; set; }
-        public BalanceContext(DbContextOptions<BalanceContext> options)
+        public DataBaseContext(DbContextOptions<DataBaseContext> options)
             : base(options)
         {
             Database.EnsureCreated();
